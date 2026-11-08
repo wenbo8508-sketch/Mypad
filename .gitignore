@@ -1,0 +1,19 @@
+# Qt Creator / CMake 构建产物
+build/
+build-*/
+out/
+.qtcreator/
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles/
+.qmake.stash
+Makefile
+ui_*.h
+moc_*.cpp
+qrc_*.cpp
+*.o
+*.obj
+*.exe
+*.dll
+*.pdb
+.vs/
