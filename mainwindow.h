@@ -10,6 +10,9 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
+class SearchDialog;
+class ReplaceDialog;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -33,8 +36,6 @@ private slots:
 
     void on_actionSave_as_triggered();
 
-    void on_actionSave_as_changed();
-
     void on_actionCut_triggered();
 
     void on_actionCopy_triggered();
@@ -57,9 +58,23 @@ private slots:
 
     void on_actionLineNumber_triggered();
 
+    void on_actionFort_triggered();
+
     void on_actionFornColor_triggered();
 
     void on_actionAutoExchangeLine_triggered();
+
+    void on_actionShowStatusBar_triggered();
+
+    void on_actionShowToolbar_triggered();
+
+    void on_actionAll_triggered();
+
+    void on_actionExit_triggered();
+
+    void on_testEdit_textChanged();
+
+    void on_testEdit_cursorPositionChanged();
 
 private:
     Ui::MainWindow *ui;
@@ -71,7 +86,12 @@ private:
     bool textChanged;
     bool m_showLineNumber = true;
 
-    bool userEditConfirmed();
+    // 查找/替换对话框（非模态，重复打开时复用同一个）
+    SearchDialog *searchDialog = nullptr;
+    ReplaceDialog *replaceDialog = nullptr;
 
+    bool userEditConfirmed();
+    bool saveFile();
+    void updateStatusBar();
 };
 #endif // MAINWINDOW_H
