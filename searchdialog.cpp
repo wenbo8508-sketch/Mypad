@@ -25,6 +25,13 @@ void SearchDialog::setEditor(QPlainTextEdit *editor)
     m_editor = editor;
 }
 
+void SearchDialog::setKeyword(const QString &keyword)
+{
+    ui->lineEdit->setText(keyword);
+    ui->lineEdit->selectAll();
+    ui->lineEdit->setFocus();
+}
+
 QTextDocument::FindFlags SearchDialog::findFlags() const
 {
     QTextDocument::FindFlags flags;

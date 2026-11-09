@@ -252,6 +252,9 @@
     <iconset resource="notepad.qrc">
      <normaloff>:/img/png/24px_blue/save_as.png</normaloff>:/img/png/24px_blue/save_as.png</iconset>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
    <property name="text">
     <string>另存为(&amp;A)</string>
    </property>

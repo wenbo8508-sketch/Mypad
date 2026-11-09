@@ -23,6 +23,9 @@ public:
 
     void setEditor(QPlainTextEdit *editor);
 
+    // 打开对话框时把编辑器里选中的词填进查找框，方便直接替换这个词
+    void setKeyword(const QString &keyword);
+
 private slots:
     void on_pushButtonFindNext_clicked();
     void on_pushButtonReplace_clicked();

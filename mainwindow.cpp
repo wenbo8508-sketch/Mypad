@@ -27,6 +27,24 @@ bool clipboardHasText()
     const QMimeData *mimeData = QApplication::clipboard()->mimeData();
     return mimeData && mimeData->hasText();
 }
+
+// 选中的文本适合直接填进查找框的条件：非空、不跨行、不太长
+QString selectedWordForSearch(QPlainTextEdit *edit)
+{
+    if (!edit)
+        return QString();
+
+    const QString selected = edit->textCursor().selectedText();
+    if (selected.isEmpty() || selected.size() > 128)
+        return QString();
+
+    for (const QChar &ch : selected) {
+        if (ch == QChar::LineSeparator || ch == QChar::ParagraphSeparator
+            || ch == u'\n' || ch == u'\r')
+            return QString();
+    }
+    return selected;
+}
 } // namespace
 
 MainWindow::MainWindow(QWidget *parent)
@@ -91,6 +109,12 @@ void MainWindow::on_actionFind_triggered()
     if (!searchDialog)
         searchDialog = new SearchDialog(ui->testEdit, this);
     searchDialog->setEditor(ui->testEdit);
+
+    // 选中了内容就自动填到查找框里，没选中则把焦点还给输入框
+    const QString keyword = selectedWordForSearch(ui->testEdit);
+    if (!keyword.isEmpty())
+        searchDialog->setKeyword(keyword);
+
     searchDialog->show();
     searchDialog->raise();
     searchDialog->activateWindow();
@@ -102,6 +126,11 @@ void MainWindow::on_actionReplace_triggered()
     if (!replaceDialog)
         replaceDialog = new ReplaceDialog(ui->testEdit, this);
     replaceDialog->setEditor(ui->testEdit);
+
+    const QString keyword = selectedWordForSearch(ui->testEdit);
+    if (!keyword.isEmpty())
+        replaceDialog->setKeyword(keyword);
+
     replaceDialog->show();
     replaceDialog->raise();
     replaceDialog->activateWindow();

@@ -25,6 +25,13 @@ void ReplaceDialog::setEditor(QPlainTextEdit *editor)
     m_editor = editor;
 }
 
+void ReplaceDialog::setKeyword(const QString &keyword)
+{
+    ui->lineEditFind->setText(keyword);
+    ui->lineEditFind->selectAll();
+    ui->lineEditFind->setFocus();
+}
+
 QTextDocument::FindFlags ReplaceDialog::findFlags() const
 {
     QTextDocument::FindFlags flags;
